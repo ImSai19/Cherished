@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cherished Friendship - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #2c003e;
+            --secondary-color: #800080;
+            --accent-color: #a400a4;
+            --card-color: #3a0044;
+            --text-color: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --glow-color: rgba(164, 0, 164, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--primary-color);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, white, transparent);
+            opacity: 0;
+            transform: rotate(var(--angle));
+            animation: shoot 3s infinite ease-out;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(-100px) rotate(var(--angle)); opacity: 1; }
+            20% { opacity: 1; }
+            40% { opacity: 0; }
+            100% { transform: translateX(calc(100vw + 100px)) rotate(var(--angle)); opacity: 0; }
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(125deg, #2c003e, #4a0072, #800080, #3a0044);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        0 0 20px var(--glow-color);
+            max-width: 90%;
+            width: 500px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            animation: fadeInUp 1s ease forwards, float 6s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 5s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title-animation {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(45deg, #fff, #d9a7e0, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            text-shadow: 0 0 10px rgba(164, 0, 164, 0.3);
+        }
+
+        .title-animation::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            border-radius: 3px;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-size: 1.1em;
+            animation: fadeIn 2s forwards;
+        }
+
+        .input-container {
+            position: relative;
+            margin: 30px auto;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        input {
+            padding: 18px 20px;
+            padding-left: 55px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 50px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 20px var(--glow-color);
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-icon-container {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-icon {
+            color: white;
+            font-size: 14px;
+            animation: iconPulse 2s infinite;
+        }
+
+        @keyframes iconPulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+        }
+
+        .pulse-button {
+            position: relative;
+            padding: 18px 35px;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(128, 0, 128, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px auto;
+            min-width: 200px;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0);
+            opacity: 0;
+            border-radius: 50px;
+            transition: all 0.5s;
+        }
+
+        .pulse-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(128, 0, 128, 0.6);
+        }
+
+        .pulse-button:hover::before {
+            transform: scale(1.5);
+            opacity: 0;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                width: 90%;
+            }
+            
+            .title-animation {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .pulse-button {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-30px); }
+        }
+        
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-up linear infinite;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--opacity);
+            }
+            90% {
+                opacity: var(--opacity);
+            }
+            100% {
+                transform: translateY(-20vh) translateX(var(--shift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="stars" id="stars"></div>
+    <div class="particles-container" id="particles"></div>
+   
+    <div id="login-container" class="container">
+        <h1 class="title-animation">Cherished Friendship</h1>
+        <p class="subtitle">Enter the special key to unlock your cherished memories</p>
+        
+        <div class="input-container">
+            <div class="input-icon-container">
+                <i class="fas fa-key input-icon"></i>
+            </div>
+            <input type="password" id="cherished-key" placeholder="Enter Cherished Key" autocomplete="off">
+        </div>
+        
+        <button onclick="validateKey()" class="pulse-button">
+            <span>Unlock Memories</span>
+            <i class="fas fa-unlock-alt"></i>
+        </button>
+        
+        <p id="error-message" class="error-message"></p>
+        
+        <p class="footer-text">Made with <span class="heart">❤</span> for special connections</p>
+    </div>
+
+    <script>
+        // Function to validate the cherished key
+        function validateKey() {
+            const cherishedKey = document.getElementById('cherished-key').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            // Replace '1234' with your actual cherished key
+            if (cherishedKey === '1234') {
+                // Store authentication state in localStorage
+                localStorage.setItem('isAuthenticated', 'true');
+                
+                // Redirect to the main page
+                window.location.href = 'index.html';
+            } else {
+                // Show error with animation
+                errorMessage.textContent = 'Invalid Cherished Key. Please try again.';
+                errorMessage.classList.add('show');
+                
+                // Shake animation for input
+                const input = document.getElementById('cherished-key');
+                input.style.animation = 'shake 0.5s';
+                
+                // Remove animation after it completes
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Add keypress event listener for the cherished key input
+        document.getElementById('cherished-key').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                validateKey();
+            }
+        });
+
+        // Initialize any animations or effects when the page loads
+        window.addEventListener('load', function() {
+            // Add subtle animation to the title
+            document.querySelector('.title-animation').style.animation = 'shine 3s linear infinite';
+            
+            // Add focus to the input field
+            document.getElementById('cherished-key').focus();
+            
+            // Add subtle pulse to the submit button
+            const pulseButton = document.querySelector('.pulse-button');
+            setInterval(() => {
+                pulseButton.classList.add('pulse');
+                setTimeout(() => {
+                    pulseButton.classList.remove('pulse');
+                }, 1000);
+            }, 3000);
+            
+            // Check if user is already authenticated
+            if (localStorage.getItem('isAuthenticated') === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
